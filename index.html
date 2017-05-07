@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>上传测量数据</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="./webuploader.css" />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+	<style>
+		body{background:#f5f5f5;margin:0 0 20px;}
+		ul,li,p{margin:0;padding:0}
+		input{
+			border: none;
+			padding:5px;
+			width: 60%;
+		}
+		tr{background:#FFFFFF}
+		.upload_image img{min-width:100%;max-height:160px;max-width: 100%;min-height: 100%;}
+		table{overflow: hidden;display:inline-block;background: #FFF;padding:0 10px 5px;border-collapse: collapse;border-spacing: 0;}
+		tbody{color:#cccccc;width: 100%;}
+		td{height:30px;padding-bottom:0;}
+		tbody td{padding-left: 5px;}
+		.tcenter{text-align:center}
+		.tright{text-align:right}
+		.right{float:right}
+		.f-orange{color:#E17640}
+		.bg-orange{background:#E17640}
+		.bg-white{background:#FFFFFF}
+		.upload_image{background:#FFF;display:inline-block;color:#8e8e8e;position:relative}
+		.add:after{  
+		  content: " ";
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-webkit-transform: translate(-50%,-50%);
+			transform: translate(-50%,-50%);
+			background-color: #d9d9d9;
+			width: 39.5px;
+			height: 2px;
+			}
+		.add:before{  
+			content: " ";
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-webkit-transform: translate(-50%,-50%);
+			transform: translate(-50%,-50%);
+			background-color: #d9d9d9;
+			width: 2px;
+			height: 39.5px;
+		}
+		.add{
+   			text-align:center;
+   			margin:0 auto
+		}
+		.add .texie{position:absolute;top: 50%;left:0;width:20px;color:#cccccc;font-size: 18px;margin-top: -36px;}
+		.quanjing{width:20px;position:absolute;top:0;left:0;font-size: 18px;}
+		.link{display:block;height:5px;background:#f5f5f5;width:310%;margin-left: -12px;}
+		table thead tr:first-child a{width: 100%;display: inline-block;text-decoration:none;color: #000;}
+		#addSeat{padding:15px 0;font-size:20px}
+		.footer-center{text-align:center}
+		.testUpload{opacity:0;padding:0}
+		.footer-center button{color:#FFF;background:#E17640;border:none;padding:12px 20px;border-radius:6px;margin:0 5px}
+    .beizhu{width:100%;}
+	input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {color: #cccccc;} 
+	input:-moz-placeholder, textarea:-moz-placeholder {color: #cccccc; } 
+	input::-moz-placeholder, textarea::-moz-placeholder { color: #cccccc; } 
+	input:-ms-input-placeholder, textarea:-ms-input-placeholder { color: #cccccc; } 
+    </style>
+</head>
+<body>
+	<div id="tableChild">
+		<form action="">
+	<table class="table-0">
+		<thead>
+			<tr>
+				<td colspan="2" style="padding:10px 0 5px">
+					<p>Nike</p>
+					<p><span>2017-05-15</span>│<span class="f-orange">7626818</span></p>
+				</td>
+				<td class="tright">
+					<a href="#">></a>
+				</td>
+			</tr>
+			<tr class="tcenter link">
+			</tr>
+			<tr>
+				<td colspan="3" class="tcenter">
+					<div id="wrapper">
+						<div id="container">
+							<!--头部，相册选择和格式选择-->
+							<div id="uploader">
+								<div class="queueList">
+									<div id="dndArea" class="placeholder">
+										<span class="quanjing">全景图</span><div id="filePicker"></div>
+									</div>
+								</div>
+								<div class="statusBar" style="display:none;">
+									<div class="btns">
+										<div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr class="tcenter link">
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td rowspan="5" style="border-bottom: 1px solid #e4e4e4;width: 40%;border-right:1px solid #e4e4e4;padding: 3px;height:166px">
+							<div class="upload_image add" style="width:100%;height: 100%;">
+								    <span class="texie">特写图</span><input type="file" class="testUpload file" style="width:100%;height: 100%;">
+							</div>
+						</td>
+						<td colspan="3" style="border-bottom: 1px solid #e4e4e4;">
+							测量名称:<input type="text" style="width: 54%;" name="kName">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3" style="text-align:left;border-bottom: 1px solid #e4e4e4;">
+							所在位置:<input type="text" style="width: 54%;" name="kPlace">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3" style="text-align:left;border-bottom: 1px solid #e4e4e4;">
+							数量:<input type="text" style="width: 72%;" name="kNumber">
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align:left;border-right: 1px solid #e4e4e4;border-bottom:1px solid #e4e4e4;;">
+							宽:<input type="text" style="vertical-align:middle;width:63%" name="kWidth" placeholder="单位(mm)">
+						</td>
+						<td style="text-align:left;border-bottom: 1px solid #e4e4e4;">
+							高:<input type="text" style="vertical-align:middle;width:63%" name="kHeight" placeholder="单位(mm)">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3" style="text-align:left;border-bottom: 1px solid #e4e4e4;">
+							材质:<input type="text" name="caiZhi"></td>
+					</tr>
+					<tr>
+						<td colspan="3">
+							备注(几公分出血):<textarea name="beiZhu" class="beizhu" rows="2" placeholder=""></textarea>
+						</td>
+					</tr>
+				</tbody>
+	</table>
+	</form>
+	</div>
+    <footer class="footer-center">
+		<div id="addSeat">＋增加测量位置</div>
+		<div>
+			<button class="btn-share" id="btnShare">放弃订单</button>
+			<button class="btn-share" id="btnHang">申请挂起</button>
+			<button class="btn-share" id="btnFinish">申请完工</button>
+		</div>
+    </footer>
+    <script type="text/javascript" src="./jquery.js"></script>
+    <script type="text/javascript" src="./webuploader.js"></script>
+    <script type="text/javascript" src="./html2canvas.js"></script>
+    <script type="text/javascript" src="./upload.js"></script>
+    <script type="text/javascript">
+		//新建表格
+	var m=0;
+	$("#addSeat").click(function(){
+		var table=document.createElement("table");
+		m++;
+		table.setAttribute('class','table-'+m);
+		table.innerHTML=
+			'<table><tbody><tr><td rowspan="5" style="border-bottom: 1px solid #e4e4e4;width: 40%;border-right:1px solid #e4e4e4;padding: 3px;height:166px">'+
+							'<div class="upload_image add" style="width:100%;height: 100%;">'+
+								    '<span class="texie">特写图</span><input type="file" class="testUpload file" style="width:100%;height: 100%;">'+
+							'</div></td><td colspan="3" style="border-bottom: 1px solid #e4e4e4;">测量名称:<input type="text" style="width: 54%;" name="kName">'+
+						'</td></tr><tr>'+
+						'<td colspan="3" style="text-align:left;border-bottom: 1px solid #e4e4e4;">'+
+							'所在位置:<input type="text" style="width: 54%;" name="kPlace">'+
+						'</td>'+
+					'</tr>'+
+					'<tr>'+
+						'<td colspan="3" style="text-align:left;border-bottom: 1px solid #e4e4e4;">'+
+							'数量:<input type="text" style="width: 72%;" name="kNumber">'+
+						'</td>'+
+					'</tr>'+
+					'<tr>'+
+						'<td style="text-align:left;border-right: 1px solid #e4e4e4;border-bottom:1px solid #e4e4e4;;">'+
+							'宽:<input type="text" style="vertical-align:middle;width:63%" name="kWidth" placeholder="单位(mm)">'+
+						'</td>'+
+						'<td style="text-align:left;border-bottom: 1px solid #e4e4e4;">'+
+							'高:<input type="text" style="vertical-align:middle;width:63%" name="kHeight" placeholder="单位(mm)">'+
+						'</td>'+
+					'</tr>'+
+					'<tr>'+
+						'<td colspan="3" style="text-align:left;border-bottom: 1px solid #e4e4e4;">'+
+							'材质:<input type="text" name="caiZhi"></td>'+
+					'</tr>'+
+					'<tr>'+
+						'<td colspan="3">'+
+							'备注(几公分出血):<textarea name="beiZhu" class="beizhu" rows="2" placeholder=""></textarea>'+
+						'</td>'+
+					'</tr>'+
+				'</tbody>'+
+			'</table>';
+			$("#tableChild").append(table);
+	})
+    </script>
+	<script type="text/javascript">
+
+ </script>
+</body>
+</html>
