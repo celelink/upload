@@ -222,7 +222,7 @@
 					<thead>
 						<tr>
 							<td colspan="2" style="padding:10px 0 5px">
-								<p id="">Nike</p>
+								<p>Nike</p>
 								<p><span>2017-05-15</span>│<span class="f-orange">7626818</span></p>
 							</td>
 							<td class="tright">
@@ -371,10 +371,6 @@
 					'备注(几公分出血):<textarea name="beiZhu" class="beizhu" rows="2" placeholder=""></textarea>' +
 					'</td></tr></tbody></table>';
 				//插入到dom中
-				if($(".upload_image img").empty()){
-					alert("请先完成表格中图片的上传");
-					return
-				}
 				$("#tableChild").append(table);
 			})
 		</script>
@@ -422,6 +418,24 @@
 				$(this).next().html('<span class="texie">特写图</span><input type="file" class="testUpload file" style="width:100%;height: 100%;">');
 				$(this).next().addClass("add");
 			})
+			/*表单的操作
+			 *{
+			 *"orderId": "999",
+			 *"technicianId": "998",
+			 *"pingPai": "宝洁",
+			 *"date": "2017-05-07",
+			 *"tel": "13816521685",
+			 *"meas": "张三",
+			 *"panorama": [
+			 *    "231", "5454",
+			 *    "5465", "fhf"
+			 *],
+			 *"data": {
+			 *    "231": "5454",
+			 *    "5465": "fhf"
+			 *}
+			 *}
+			 */
 			//------------------对url进行分解操作------------------
 			var url = window.location.href;
 
@@ -435,11 +449,6 @@
 			}
 			//------------表单数据的整理----------------
 			$("#btnFinish").click(function() {
-				
-				if(oldArr("kName")[0] == "") {
-					alert("请先完成表单的填写");
-					return
-				};
 				//-----------封装返回一个输入框值的数组------------
 				function oldArr(a) {
 					var newRtc = $('[name="' + a + '"]');
@@ -450,14 +459,8 @@
 						return b
 					}
 				}
-				console.log("订单id"+formUrl(url).orderId);
-				console.log("工人id"+formUrl(url).technicianId);
-				console.log("品牌"+formUrl(url).pingPai);
-				console.log("时间"+formUrl(url).date);
-				console.log("电话"+formUrl(url).tel);
-				console.log("测量人"+formUrl(url).meas);
-				console.log("全景图"+quanUrl);
-				console.log("特写图"+urlArr);
+				console.log("全景图"+urlArr);
+				console.log("特写图"+quabUrl);
 				console.log("名称"+oldArr("kName"));
 				console.log("位置"+oldArr("kPlace"));
 				console.log("数量"+oldArr("kNumber"));
@@ -465,15 +468,15 @@
 				console.log("高度"+oldArr("kHeight"));
 				console.log("材质"+oldArr("caiZhi"));
 				console.log("备注"+oldArr("beiZhu"));
-				var data = {
-					"orderId":formUrl(url).orderId,
-					"technicianId":formUrl(url).technicianId,
-					"pingPai": formUrl(url).pingPai,
-					"json": {
-						"date": formUrl(url).date,// new Date().Format("yyyy-MM-dd hh:mm:ss"),
+				if(oldArr("kName")[0] == "") {
+					alert("请先完成表单的填写");
+					return
+				};
+				var jsonData = {
+						"date": new Date().Format("yyyy-MM-dd hh:mm:ss"),
 						"tel": formUrl(url).tel,
 						"meas": formUrl(url).meas,
-						"panorama": quanUrl,
+						"panorama": quabUrl,
 						"imgArr": urlArr,
 						"kName": oldArr("kName"),
 						"kPlace": oldArr("kPlace"),
@@ -482,10 +485,18 @@
 						"kHeight": oldArr("kHeight"),
 						"caiZhi": oldArr("caiZhi"),
 						"beiZhu": oldArr("beiZhu")
-					}
+				};
+				var data = {
+					"orderId": "1338",
+					"technicianId": "429",
+					//"orderId":formUrl(url).orderId,
+					//"technicianId":formUrl(url).technicianId,
+					"pingPai": formUrl(url).pingPai,
+					"json": JSON.stringify(jsonData)
 				};
 				$.ajax({
 					type: "post",
+					//url:"http://127.0.0.1:8000/celefix/backend/app/case/doCompleteCase",
 					url:"http://116.62.48.143/celefix/backend/app/case/doCompleteCase",
 					data: data,
 					dataType: "json",
@@ -503,8 +514,7 @@
 					"technicianId": 1236,
 					"cancelContent": "quxiao"
 				}, function(data) {
-					var xhr=$.parseJSON($.base64.atob(data,true));
-						alert(xhr.msg);
+					console.log(data);
 				})
 			})
 			//生成图片的base64编码

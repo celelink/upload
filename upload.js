@@ -1,3 +1,4 @@
+var quanUrl=[];
 (function( $ ){
     // 当domReady的时候开始初始化
     $(function() {
@@ -143,7 +144,8 @@
                 label: '点击选择图片'
             },
             formData: {
-                uid: 123
+                attachmentFile: 111,
+				attachmentType:2
             },
             dnd: '#dndArea',
             paste: '#uploader',
@@ -151,7 +153,8 @@
             chunked: false,
 			compress: null,
             chunkSize: 512 * 1024,
-            server: './fileupload.php',
+            server: 'http://116.62.48.143/celefix/backend/base/saveImg',
+            //server: 'http://127.0.0.1:8000/celefix/backend/base/saveAttachment',
             // runtimeOrder: 'flash',
 
             accept: {
@@ -187,7 +190,7 @@
         });
 
         uploader.on('dialogOpen', function() {
-            console.log('here');
+            //console.log('here');
         });
 
         // uploader.on('filesQueued', function() {
@@ -260,10 +263,11 @@
                         img = $('<img src="'+src+'">');
                         $wrap.empty().append( img );
                     } else {
-                        $.ajax('preview.php', {
+                        $.ajax('http://116.62.48.143/celefix/backend/base/saveImg', {
                             method: 'POST',
                             data: src,
-                            dataType:'json'
+                            dataType:'json',
+							contentType: "application/json; charset=utf-8",
                         }).done(function( response ) {
                             if (response.result) {
                                 img = $('<img src="'+response.result+'">');
@@ -487,7 +491,7 @@
 
             updateStatus();
         }
-
+		//进度条的控制
         uploader.onUploadProgress = function( file, percentage ) {
             var $li = $('#'+file.id),
                 $percent = $li.find('.progress span');
@@ -545,7 +549,9 @@
         uploader.onError = function( code ) {
             alert( 'Eroor: ' + code );
         };
-
+		uploader.on('uploadSuccess',function( file,response ) {
+			quanUrl.push(response._raw);
+        });
         $upload.on('click', function() {
             if ( $(this).hasClass( 'disabled' ) ) {
                 return false;
@@ -571,71 +577,5 @@
         $upload.addClass( 'state-' + state );
         updateTotalProgress();
     });
-	var imgSrc="";
-	// 前端只需要给input file绑定这个change事件即可（下面两个方法不需要修改）获取到图片
-	 $('#tableChild').on('change','.file',function(event){
-		 var imageUrl = getObjectURL($(this)[0].files[0]);
-		 convertImgToBase64(imageUrl, function(base64Img){
-			//base64Img为转好的base64,放在img src直接前台展示(<img src="data:image/jpg;base64,/9j/4QMZRXh...." />)
-			//console.log(base64Img);
-			//imgSrc=base64Img;
-			var imgs=document.createElement('img'); 
-			//console.dir(base64Img);
-			//console.dir(event)
-			//console.log(base64Img);
-			var a=event.delegateTarget.id;
-			var b=$("#"+a+" table");
-			imgs.src=base64Img;
-			if($(".upload_image").hasClass("add")){
-				$(".add").html(imgs);
-				$(".upload_image").removeClass("add");
-			}
-			//$("#base").attr("src",base64Img);
-			//base64转图片不需要base64的前缀data:image/jpg;base64
-			//alert(base64Img.split(",")[1]);
-			 //$("#uploadFile").val(base64Img.split(",")[1]);
-		  });
-		  event.preventDefault(); 
-	  }); 
-
-	//生成图片的base64编码
-	function convertImgToBase64(url, callback, outputFormat){ 
-		 //html5 的convas画布
-		 var canvas = document.createElement('CANVAS'); 
-		 var ctx = canvas.getContext('2d'); 
-		 var img = new Image; 
-		 img.crossOrigin = 'Anonymous'; 
-		 img.onload = function(){
-		   var width = img.width;
-		   var height = img.height;
-		   // 按比例压缩4倍
-		   //var rate = (width<height ? width/height : height/width);
-		   //原比例生成画布图片
-		   var rate = 1;
-		   canvas.width = width*rate; 
-		   canvas.height = height*rate; 
-		   ctx.drawImage(img,0,0,width,height,0,0,width*rate,height*rate); 
-	 // canvas.toDataURL 返回的是一串Base64编码的URL，当然,浏览器自己肯定支持 
-			var dataURL = canvas.toDataURL(outputFormat || 'image/png'); 
-			callback.call(this, dataURL); 
-			canvas = null; 
-		  };
-		  img.src = url; 
-		}
-
-	//createobjecturl()静态方法创建一个包含了DOMString代表参数对象的URL。该url的声明周期是在该窗口中.也就是说创建浏览器创建了一个代表该图片的Url.
-	function getObjectURL(file) {
-		 var url = null ; 
-		  if (window.createObjectURL!=undefined){
-		 // basic
-			url = window.createObjectURL(file) ;
-		  } else if (window.URL!=undefined){
-		 // mozilla(firefox)
-			url = window.URL.createObjectURL(file) ;
-		  } else if (window.webkitURL!=undefined){
-		 //web_kit or chrome
-			url = window.webkitURL.createObjectURL(file) ;
-		  }
-		  return url ;
-		 }
+	
 })( jQuery );

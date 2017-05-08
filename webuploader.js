@@ -4086,9 +4086,9 @@
                 data = $.extend( data, {
                     id: file.id,
                     name: file.name,
-                    type: file.type,
+                    //type: file.type,
                     lastModifiedDate: file.lastModifiedDate,
-                    size: file.size
+                    //size: file.size
                 });
     
                 block.chunks > 1 && $.extend( data, {
