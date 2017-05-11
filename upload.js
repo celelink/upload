@@ -23,7 +23,6 @@ var quanUrl=[];
 
             // 添加的文件数量
             fileCount = 0,
-
             // 添加的文件总大小
             fileSize = 0,
 
@@ -152,24 +151,22 @@ var quanUrl=[];
             swf: '../../dist/Uploader.swf',
             chunked: false,
 			compress: null,
+			auto:false,
+			fileNumLimit:6,
             chunkSize: 512 * 1024,
             server: 'http://116.62.48.143/celefix/backend/base/saveImg',
             //server: 'http://127.0.0.1:8000/celefix/backend/base/saveAttachment',
             // runtimeOrder: 'flash',
-
             accept: {
                  title: 'Images',
                  extensions: 'gif,jpg,jpeg,bmp,png',
                  mimeTypes: 'image/*'
              },
-
             // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
             disableGlobalDnd: true,
-            fileNumLimit: 300,
             fileSizeLimit: 200 * 1024 * 1024,    // 200 M
             fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
         });
-
         // 拖拽时不接受 js, txt 文件。
         uploader.on( 'dndAccept', function( items ) {
             var denied = false,
@@ -576,6 +573,5 @@ var quanUrl=[];
 
         $upload.addClass( 'state-' + state );
         updateTotalProgress();
-    });
-	
+		});
 })( jQuery );

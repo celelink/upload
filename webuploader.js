@@ -4213,7 +4213,7 @@
             var uploader = this,
                 opts = uploader.options,
                 count = 0,
-                max = parseInt( opts.fileNumLimit, 10 ),
+                max = parseInt( opts.fileNumLimit,10),
                 flag = true;
     
             if ( !max ) {
@@ -4221,10 +4221,9 @@
             }
     
             uploader.on( 'beforeFileQueued', function( file ) {
-    
                 if ( count >= max && flag ) {
                     flag = false;
-                    this.trigger( 'error', 'Q_EXCEED_NUM_LIMIT', max, file );
+                    this.trigger( 'error', '文件上传个数超出限制', max, file );
                     setTimeout(function() {
                         flag = true;
                     }, 1 );

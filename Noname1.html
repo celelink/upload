@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+  
+<script language="javascript">
+// 这个脚本是 ie6和ie7 通用的脚本
+function custom_close(){
+	if(confirm("您确定要取消订单吗？")){
+		console.log(this);
+		if (confirm("您确定关闭录入测量参数界面吗？")){
+			window.close();
+		}else{}
+	}else{}
+}
+</script>
+<input id="btnClose" type="button" value="关闭本页" onClick="custom_close()" />
+ </body>
+</html>
