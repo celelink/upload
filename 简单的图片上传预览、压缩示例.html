@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- saved from url=(0270)http://ons.me/wp-content/uploads/2016/08/image_upload.html?nsukey=uMc4vUdXLANm3h14DOT8tSFalKBOXZsvKNneo%2FvqiyJom0ARBSU5hp9RPJDypDpv70QCvq5tV%2Fpfmz6O495lzRYO%2BqHpDezE7%2B5Xa2dGRwXoRaaQW63t8TtwvjBJv4cGm6HF%2BNBfNuCLJq9m%2Bpm67H1gJSvLZPBdwohBAcxRCoJHqD98arWx5KkUF5pRnJb7 -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1, user-scalable=0, minimal-ui=yes" charset="UTF-8">
+    <title>简单的图片上传预览、压缩示例</title>
+<style>
+*{
+    margin: 0;
+    padding:0;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    -webkit-text-size-adjust:none;
+}
+html{
+    font-size:10px;
+}
+body{
+    font-size: 1.4em;
+}
+.upload_box{
+    position: relative;
+    width: 200px;
+    height: 200px;
+    line-height: 200px;
+    overflow: hidden;
+    margin: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+.upload_box:after{
+    content: '点击上传';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+}
+.upload_box .upload_file{
+    -webkit-appearance: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+.upload_box img{
+    display: none;
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: middle;
+}
+.upload_box canvas{
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+</style>
+</head>
+<body rlt="1">
+<h2>简单的图片上传预览、压缩示例</h2>
+<div class="upload_box">
+    <input class="upload_file" type="file" accept="image/*">
+    <img src="" alt="">
+    <canvas></canvas>
+</div>
+
+<script src="./简单的图片上传预览、压缩示例_files/hm.js"></script><script src="./简单的图片上传预览、压缩示例_files/zepto.min.js"></script>
+<script>
+$(function(){
+    $('.upload_file').on('change',function(){
+        var $this = $(this);
+        // 获取上传文件信息集合
+        var fileInfo = this.files[0];
+
+        // 判断是否为图片格式
+        if(fileInfo.type.indexOf('image') == -1){
+            alert('请选择图片');
+            return;
+        }
+
+        // 获取图片暂存路径 https://developer.mozilla.org/zh-CN/docs/Web/API/URL/createObjectURL
+        var url = (window.webkitURL ? webkitURL : window.URL).createObjectURL(fileInfo);
+        if(url){
+            // 创建一个图片
+            var img = new Image();
+            // 把获取的图片路径赋值给他
+            img.src = url;
+            // 这个图片加载后
+            img.onload = function(){
+                var imgWidth = img.width;
+                var imgHeight = img.height;
+                var maxWidth = 600;
+                var maxHeight = 600;
+                var resultWidth = 0;
+                var resultHeight = 0;
+                var degree = 0;
+                var flag;
+
+                // 图片尺寸按照比例缩放
+                if(imgWidth > imgHeight){
+                    if(imgWidth > maxWidth){
+                        resultWidth = maxWidth;
+                        resultHeight = maxWidth*imgHeight/imgWidth;
+                    }else{
+                        resultWidth = imgWidth;
+                        resultHeight = imgHeight;
+                    }
+                }else{
+                    if(imgHeight > maxHeight){
+                        resultHeight = maxHeight;
+                        resultWidth = maxHeight*imgWidth/imgHeight;
+                    }else{
+                        resultWidth = imgWidth;
+                        resultHeight = imgHeight;
+                    }
+                }
+
+                // 插入图片并显示
+                $('.upload_box img').attr('src',url).show();
+                // 给canvas赋值压缩后的宽高
+                var canvas = document.querySelector('.upload_box canvas');
+                canvas.width = resultWidth;
+                canvas.height = resultHeight;
+
+                // 绘图环境 http://www.w3school.com.cn/jsref/met_canvas_getcontext.asp
+                var ctx = canvas.getContext('2d');
+
+                // 在canvas上存放图片 http://www.w3school.com.cn/tags/canvas_drawimage.asp
+                ctx.drawImage(img, 0, 0, resultWidth, resultHeight);
+
+                // canvas转base64，图片质量0.7 https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement/toDataURL
+                var base64 = canvas.toDataURL('image/jpeg', 0.7);
+
+                // 把压缩后的base64存放到img上，方便开发获取
+                $('.upload_box img').attr('data-src',base64);
+
+                // 测试
+                // $('body').append('<img src="'+base64+'" />');
+            };
+        }
+    });
+
+});
+
+
+</script>
+
+</body></html>
