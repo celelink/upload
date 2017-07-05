@@ -1,0 +1,322 @@
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%> -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<title>上传测量数据</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="webuploader.css" />
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<style>body{background:#f5f5f5;margin:0 0 20px;text-align:center}ul,li,p{margin:0;padding:0}input{border:none;padding:5px;width:60%}tr{background:#FFFFFF}.upload_image img{min-width:100%;max-height:160px;max-width:100%;min-height:100%}table{display:inline-block;background:#FFF;padding:0 10px 5px;border-collapse:collapse;border-spacing:0;overflow:hidden}tbody{color:#cccccc;width:100%;overflow:hidden;padding-top:10px}td{height:30px;padding-bottom:0;text-align: left;}tbody td{padding-left:5px}.tcenter{text-align:center}.tright{text-align:right}.right{float:right}.f-orange{color:#ff6600}.bg-orange{background:#ff6600}.bg-white{background:#FFFFFF}.upload_image{background:#FFF;
+				max-width: 278px;display:inline-block;color:#8e8e8e;position:relative;width:100%;height:100%;}.add:after{content:" ";position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);background-color:#d9d9d9;width:39.5px;height:2px}.beizhu{padding:5px;}textarea{width:100%}.add:before{content:" ";position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);background-color:#d9d9d9;width:2px;height:39.5px}.add{text-align:center;margin:0 auto}.add .texie{position:absolute;top:50%;left:0;width:20px;color:#cccccc;font-size:18px;margin-top:-36px}.quanjing{width:20px;position:absolute;top:0;left:0;font-size:18px}.link{display:block;height:5px;background:#f5f5f5;width:260%;margin-left:-15px}table thead tr:first-child a{width:100%;display:inline-block;text-decoration:none;color:#000}tbody tr:nth-child(length-2){color:red}#addSeat{cursor: pointer;padding:15px 0;font-size:20px}#delete{cursor: pointer;color:#9d9d9d;text-align:center;background:#e6e6e6}#delete img{vertical-align: bottom;width:20px;}.footer-center{text-align:center}.testUpload{opacity:0;padding:0;width:100%;height: 100%;}#btnShare{background:#ff8532}input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{color:#cccccc}input:-moz-placeholder,textarea:-moz-placeholder{color:#cccccc}input::-moz-placeholder,textarea::-moz-placeholder{color:#cccccc}input:-ms-input-placeholder,textarea:-ms-input-placeholder{color:#cccccc}.close{position:absolute;background-color:rgba(74,74,74,0.53);width:20px;height:20px;display:none;z-index:2;color:#FFFFFF;top:4px;right:4px;cursor:pointer;text-align:center;line-height:20px;border-radius:50%}.back{width:12%}@media ( max-width:320px){.footer-center button{color:#FFF;background:#ff6600;border:none;padding:18px 28px;border-radius:6px;margin:0 10px;font-size:20px}}@media ( min-width:320px){.footer-center button{color:#FFF;background:#ff6600;border:none;padding:13px 26px;border-radius:6px;margin:0 10px;font-size:15px}}@media ( min-width:375px){.footer-center button{color:#FFF;background:#ff6600;border:none;padding:14px 20px;border-radius:6px;margin:0 17px;font-size:18px}}@media ( min-width:414px){.footer-center button{color:#FFF;background:#ff6600;border:none;padding:14px 24px;border-radius:6px;margin:0 23px;font-size:18px}}tbody tr td{border-bottom: 1px solid #e4e4e4;text-align:left;}tbody tr:last-child td{border-bottom:transparent}thead tr:first-child td:first-child{padding:10px 0 5px;line-height: 24px;}tbody tr:first-child td:first-child{width: 40%;position:relative;border-right:1px solid #e4e4e4;padding: 3px;height:166px}[name="kWidth"],[name="kHeight"]{vertical-align:middle;width:63%}</style>
+	</head>
+	<body>
+		<div id="tableChild">
+				<table class="table-0">
+					<thead>
+						<tr>
+							<td colspan="2">
+								<p id="shopName">默秀展示服务有限公司</p><!-- <span id="tel"></span> -->
+								<p><span id="date">2017-05-15</span>│<span class="f-orange" id="tel">7626818</span></p>
+							</td>
+							<td class="tright">
+								<a href="javascript:;"><!-- <img class="back" src="../images/jiantou.png"/> --></a>
+							</td>
+						</tr>
+						<tr class="tcenter link">
+						</tr>
+						<tr>
+							<td colspan="3" class="tcenter">
+								<div id="wrapper">
+									<div id="container">
+										<!--头部，相册选择和格式选择-->
+										<div id="uploader">
+											<div class="queueList">
+												<div id="dndArea" class="placeholder">
+													<span class="quanjing">全景图</span>
+													<div id="filePicker"></div>
+												</div>
+											</div>
+											<div class="statusBar" style="display:none;">
+												<div class="btns">
+													<div id="filePicker2"></div>
+													<div class="uploadBtn">开始上传</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr class="tcenter link">
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td rowspan="5">
+								<span class="close">×</span>
+								<div class="upload_image add">
+									<span class="texie">特写图</span>
+									<input type="file" onchange="imgUpLoad(this)" class="testUpload file" name="file">
+								</div>
+							</td>
+							<td colspan="3">
+								测量名称:<input type="text" style="width: 54%;" name="kName" class="jiaoyan">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								所在位置:<input type="text" style="width: 54%;" name="kPlace" class="jiaoyan">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								数量:<input type="number" style="width: 72%;" name="kNumber" class="jiaoyan">
+							</td>
+						</tr>
+						<tr>
+							<td style="border-right: 1px solid #e4e4e4;">
+								宽:<input type="number" name="kWidth" placeholder="mm" class="jiaoyan">
+							</td>
+							<td>
+								高:<input type="number" name="kHeight" placeholder="mm" class="jiaoyan">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								材质:<input type="text" name="caiZhi"></td>
+						</tr>
+						<tr>
+							<td colspan="3" class="beizhu">
+								备注(几公分出血、制作工艺等):<textarea name="beiZhu" rows="2"></textarea>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+		</div>
+		<footer class="footer-center">
+			<div id="addSeat">＋增加测量位置</div>
+			<div>
+				<button class="btn-share" id="btnShare">放弃订单</button>
+				<!--<button class="btn-share" id="btnHang">申请挂起</button>-->
+				<button class="btn-share" id="btnFinish">申请完工</button>
+			</div>
+		</footer>
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="webuploader.js"></script>
+		<script type="text/javascript" src="html2canvas.js"></script>
+		<script type="text/javascript" src="upload.js"></script>
+		<script>
+			/*-------------------对时间进行格式化的操作---------------------------
+			 * 对Date的扩展，将 Date 转化为指定格式的String
+			 * 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符， 
+			 * 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)  
+			 * (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423 
+			 * (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18 
+			 */
+			Date.prototype.Format = function(fmt) { //author: meizz 
+				var o = {
+					"M+": this.getMonth() + 1, //月份 
+					"d+": this.getDate(), //日 
+					"h+": this.getHours(), //小时 
+					"m+": this.getMinutes(), //分 
+					"s+": this.getSeconds(), //秒 
+					"q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+					"S": this.getMilliseconds() //毫秒 
+				};
+				if(/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+				for(var k in o)
+					if(new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+				return fmt;
+			}
+		</script>
+		<script type="text/javascript">
+			//创建新的表格
+			var m = 0;
+			var imgSrc = "";
+			$("#addSeat").click(function() {
+				var table = document.createElement("table");m++;
+				table.setAttribute('class', 'table-' + m);
+				table.innerHTML =
+					'<table><tbody><tr><td rowspan="5"><span class="close">×</span>' +
+					'<div class="upload_image add">' +
+					'<span class="texie">特写图</span><input type="file" class="testUpload file" onchange="imgUpLoad(this)">' +
+					'</div></td><td colspan="3">测量名称:<input type="text" style="width: 54%;" name="kName" class="jiaoyan">' +
+					'</td></tr><tr>' +
+					'<td colspan="3">' +
+					'所在位置:<input type="text" style="width: 54%;" name="kPlace" class="jiaoyan">' +
+					'</td></tr><tr>' +
+					'<td colspan="3">' +
+					'数量:<input type="number" style="width: 72%;" name="kNumber" class="jiaoyan">' +
+					'</td></tr><tr>' +
+					'<td style="border-right: 1px solid #e4e4e4">' +
+					'宽:<input type="number" name="kWidth" placeholder="mm" class="jiaoyan">' +
+					'</td>' +
+					'<td>' +
+					'高:<input type="number" name="kHeight" placeholder="mm" class="jiaoyan">' +
+					'</td></tr><tr>' +
+					'<td colspan="3">' +
+					'材质:<input type="text" name="caiZhi"></td>' +
+					'</tr><tr>' +
+					'<td colspan="3" class="beizhu">' +
+					'备注(几公分出血、制作工艺等):<textarea name="beiZhu" rows="2"></textarea>' +
+					'</td></tr><tr><td colspan="3" id="delete"><div><img src="2.png" alt="">删除测量位置</div></td></tr></tbody></table>';
+				//插入到id为tableChild的元素中
+				$("#tableChild").append(table);
+			})
+			//表格的删除
+			$('#tableChild').on("click","#delete",function(){
+				var a=parseInt(this.parentNode.parentNode.parentNode.className.slice(-1));
+				urlArr.splice(a,1);//当用户删除表格时对图片数组的最后一个进行的删除
+				this.parentNode.parentNode.parentNode.remove();
+				//console.log(urlArr);
+			})
+			//图片上传操作
+			var urlArr = [],formData;
+			function imgUpLoad(event) {
+				formData = new FormData();
+				formData.append("file", event.files[0]);
+				formData.append("attachmentType", 2);
+				$.ajax({
+					type: "post",
+					url: "http://116.62.48.143/celefix/backend/base/saveImg",
+					/*url写异域的请求地址*/
+					//url:"http://127.0.0.1:8000/celefix/backend/base/saveImg",/*url写异域的请求地址
+					dataType: 'text',
+					contentType: false, //必须 
+					processData: false, //必须
+					cache: false,
+					async:true,
+					data: formData,
+					success: function(xhr,status,data) {
+						var imgs = document.createElement('img');
+						imgs.setAttribute("src",xhr);
+						$(event.parentNode).prev().css("display","block");
+						$(event.parentNode).removeClass("add");
+						$(event.parentNode).empty().html(imgs);
+						urlArr.push(xhr);
+					},
+					error:function(e){
+					}
+				});
+			}
+			$('#tableChild').on('click', '.close', function() {
+				$(this).next().html('<span class="texie">特写图</span><input type="file" class="testUpload file" onchange="imgUpLoad(this)">');
+				$(this).next().addClass("add");
+				$(this).css("display","none");
+				urlArr.pop();//当用户删除图片时对图片数组进行最后一个的删除
+				//console.log(urlArr);
+			})
+			//------------------对url进行分解操作------------------
+			var url = window.location.href;
+			function formUrl(url) {
+				url = url.split("?")[1].split("&");
+				for(var i = 0, arr, urls = {}; i < url.length; i++) {
+					arr = url[i].split("=");
+					urls[arr[0]] = arr[1];
+				}
+				return urls;
+			}
+			if(url.indexOf("?")>0){
+				$("#date").html(formUrl(url).date==undefined?"2017-05-11":formUrl(url).date);
+				$("#tel").html(formUrl(url).tel==undefined?"18516718716":formUrl(url).tel);
+				$("#shopName").html(formUrl(url).shopName==undefined?"默秀上海展示服务有限公司":decodeURI(formUrl(url).shopName));
+				}else{
+					alert("链接出现错误");
+				}
+			//------------表单数据的整理----------------
+			$("#btnFinish").click(function() {
+				if(quanUrl.length == 0) {
+					alert("请先上传全景图");
+					return
+				};
+				for(var i=0;i<$(".jiaoyan").length;i++){
+					if($(".jiaoyan")[i].value==""){
+
+						alert("请将信息填写完整");
+						return
+					}
+				}
+				//console.log("全景图"+quanUrl);
+				//console.log("特写图"+urlArr);
+				//console.log("名称"+oldArr("kName"));
+				//console.log("位置"+oldArr("kPlace"));
+				//console.log("数量"+oldArr("kNumber"));
+				//console.log("宽度"+oldArr("kWidth"));
+				//console.log("高度"+oldArr("kHeight"));
+				//console.log("材质"+oldArr("caiZhi"));
+				//console.log("备注"+oldArr("beiZhu"));
+				var shopName =" " + decodeURI(formUrl(url).shopName);
+				var jsonData = {
+						"date": new Date().Format("yyyy-MM-dd"),
+						"tel": formUrl(url).tel,
+						"technicianName": decodeURI(formUrl(url).technicianName),
+						"shopName": shopName,
+						"panorama": quanUrl,
+						"imgArr": urlArr,
+						"kName": oldArr("kName"),
+						"kPlace": oldArr("kPlace"),
+						"kNumber": oldArr("kNumber"),
+						"kWidth": oldArr("kWidth"),
+						"kHeight": oldArr("kHeight"),
+						"caiZhi": oldArr("caiZhi"),
+						"beiZhu": oldArr("beiZhu")
+				};
+				var data = {
+					"orderId":formUrl(url).orderId,
+					"technicianId":formUrl(url).technicianId,
+					"json": JSON.stringify(jsonData)
+				};
+				$.ajax({
+					type: "post",
+					//url:"http://127.0.0.1:8000/celefix/backend/app/case/doCompleteCase",
+					url:"${pageContext.request.contextPath}/backend/app/case/doCompleteCase",
+					data: data,
+					async:true,
+					dataType: "text",
+					traditional: true,
+					success:function(e){
+						var xhr=$.parseJSON($.base64.atob(e.responseText,true));
+						alert(xhr.msg);
+						if(xhr.msg=="操作成功"){
+							$("body").html('<h1 style="position: absolute;top: 50%;left: 35%;">操作成功请返回</h1>');
+							window.open('','_self');
+							window.opener=null;
+							window.close();
+						}
+					}
+				})
+				//-----------封装返回一个输入框值的数组------------
+				function oldArr(a) {
+					var newRtc = $('[name="' + a + '"]');
+					if(newRtc.length > 0) {
+						for(var i = 0, b = []; i < newRtc.length; i++) {
+							b.push(newRtc[i].value);
+						}
+						return b
+					}
+				}
+			});
+			//------------放弃订单的操作----------------
+			$("#btnShare").click(function() {
+				if(confirm("您确定要提交订单吗？")){
+					$.post("${pageContext.request.contextPath}/backend/app/case/doCancelCase", {
+						"orderId": formUrl(url).orderId,
+						"technicianId": formUrl(url).technicianId
+						//"cancelContent": "quxiao"
+					}, function(data) {
+						var xhr=$.parseJSON($.base64.atob(data.responseText,true));
+						alert(xhr.msg);
+						if(xhr.msg=="操作成功"){
+							window.open('','_self');
+							window.opener=null;
+							window.close();
+						}
+						console.log(data);
+					});
+				}
+			})
+		</script>
+	</body>
+</html>

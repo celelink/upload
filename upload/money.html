@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>填写金额</title>
+  <link rel="stylesheet" href="bootstrap.css">
+  <style>
+	.title{
+		text-align:left;
+		padding-bottom:10px;
+	}
+	.content{
+		padding:10px;
+		background:#FFF;
+		margin-bottom:5px;
+		overflow: hidden;
+	}
+	.money{
+		line-height:25px;
+		padding: 10px;
+	}
+	.money img{
+		width:25px;
+		vertical-align: middle;
+		margin-top:2px;
+	}
+	.money input{
+		height:25px;
+		width:30%;
+		vertical-align: middle;
+	}
+	input[type="number"]{
+		border:none;
+		border-bottom:2px solid #ccc;
+		background:transparent;
+	}
+	.file{
+		opacity:0;
+		display:block;
+		width:100%;
+		height:100%;
+	}
+	.image-list{
+		overflow:hidden;
+	}
+	.image-list p{
+		padding:5px;
+	}
+	.img{
+		position:relative;
+		border:2px dashed #ccc;
+		border-radius:5px;
+		width:23.5%;
+		min-height:25%;
+		margin-bottom:5px;
+		float:left;
+		box-sizing:border-box;
+		margin-left:2%;
+	}
+	.img:after{
+		position:absolute;
+		width:60%;
+		height:2px;
+		background:#ccc;
+		top:50%;
+		left:50%;
+		transform:translate(-50%,-50%);
+		content:''
+	}
+	.img:before{
+		position:absolute;
+		width:2px;
+		height:60%;
+		background:#ccc;
+		top:50%;
+		left:50%;
+		transform:translate(-50%,-50%);
+		content:''
+	}
+	.img-one{
+		margin:0 auto;
+		margin-left:auto!important;
+		float:none;
+	}
+	.img:first-child{
+		margin-left:0
+	}
+	.f-orange{
+		color:#ff5700;
+	}
+	#submit{
+		background:#ff5700;
+		color:#fff;
+		display:block;
+		width:90%;
+		margin:20px auto 0;
+		padding:15px 0;
+		border-radius:5px;
+	}
+	
+  </style>
+ </head>
+ <body>
+ <form action="">
+	<div class="content">
+		<div class="title">请上传照片</div>
+		<div class="image-list" id="list">
+				<div class="img img-one">
+					<input type="file" name="file" class="file" accept="image/*">
+				</div>
+				<p class="f-orange">请上传收据deng照片</p>
+				<!-- <div class="img"><input type="file" name="file" class="file" accept="image/*"></div>
+				<div class="img"><input type="file" name="file" class="file" accept="image/*"></div>
+				<div class="img"><input type="file" name="file" class="file" accept="image/*"></div> -->
+		</div>
+	</div>
+	<div class="content">
+		<div class="title">请输入应收金额</div>
+		<div class="money">
+			<img src="money.png" alt="金钱图标">
+			<input type="number"><span class="unit">单位(元)</span>
+		</div>
+	</div>
+	<input type="submit" value="提交" id="submit">
+</form>
+<script>
+	window.onload=function(){
+		var arr=document.getElementsByClassName('file');
+		for(var i=0;i<arr.length;i++){
+			arr[i].style.height=getStyle(arr[i],'width');
+			arr[i].addEventListener('change',function(){
+				console.dir(this.files[0]);
+			})
+		}
+	}
+	
+	function getStyle(node,attr){
+		if(typeof getComputedStyle != 'undefined'){
+			var value = getComputedStyle(node,null).getPropertyValue(attr);
+			return attr == 'opacity' ? value * 100 : value; //兼容不透明度，如果是不透明度，则返回整数方便计算
+		}else if(typeof node.currentStyle != 'undefined'){
+			if(attr == 'opacity'){ //兼容不透明度
+				return Number(node.currentStyle.getAttribute('filter').match(/(?:opacity[=:])(\d+)/)[1]);
+			}else{
+				return node.currentStyle.getAttribute(attr);
+			}
+		}
+	}
+</script>
+ </body>
+</html>
